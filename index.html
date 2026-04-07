@@ -1246,7 +1246,7 @@ textarea.review-input { resize:vertical; min-height:100px; }
       <div class="discovery-header">
         <div>
           <div style="font-family:&#39;Fraunces&#39;,serif;font-size:28px;font-weight:600;letter-spacing:-0.5px;">Date spots in the DMV</div>
-          <div style="font-size:13px;color:var(--muted);margin-top:4px;">75 spots in DC, Arlington &amp; Alexandria</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px;">94 spots in DC, Arlington &amp; Alexandria</div>
         </div>
         <select class="sort-select">
           <option>Best rated</option>
@@ -5648,8 +5648,7 @@ document.addEventListener('click', function(e) {
     </div>
     <div class="footer-col">
       <h4>Partner With Us</h4>
-      <a onclick="showPage(&#39;affiliate-landing&#39;)">Affiliate Program</a>
-      <a onclick="showPage(&#39;affiliate-landing&#39;)">Content Creator Program</a>
+      <a onclick="showPage(&#39;affiliate-landing&#39;)">Content Creator / Affiliate Program</a>
       <a href="mailto:hello@datingdex.com">Contact Us</a>
     </div>
   </div>
@@ -5818,10 +5817,69 @@ document.addEventListener('click', function(e) {
   }
 
   function applyAll() {
-    document.querySelectorAll('.discovery-grid .spot-card').forEach(splitTagsFromScoresRow);
+    document.querySelectorAll('.spot-card').forEach(splitTagsFromScoresRow);
     // If a filter is active, recompute contextual scores
     if (typeof activeFilter !== 'undefined' && activeFilter) recomputeContextScores(activeFilter);
   }
+
+  // Extend venueAddresses with the 20 new activity venues so mapsLinkFor returns precise locations
+  var NEW_ADDRS = {
+    'Muse Paintbar': '1130 19th St NW, Washington, DC 20036',
+    "Pinot's Palette Reston": '11130 South Lakes Dr, Reston, VA 20191',
+    'Kick Axe Throwing DC': '1415 Okie St NE, Washington, DC 20002',
+    'Bad Axe Throwing Arlington': '4748 Lee Hwy, Arlington, VA 22207',
+    'The Break Room DC': '8459 Tyco Rd, Vienna, VA 22182',
+    'Smash Therapy': '14155 Sullyfield Cir, Chantilly, VA 20151',
+    'Player 1 Video Game Bar': '1942 11th St NW, Washington, DC 20001',
+    'Atlas Brew Works Arcade': '2052 West Virginia Ave NE, Washington, DC 20002',
+    'District Clay Center': '2414 Douglas St NE, Washington, DC 20018',
+    'Hinckley Pottery': '1707 Kalorama Rd NW, Washington, DC 20009',
+    'Candlefish DC': '716 Monroe St NE, Washington, DC 20017',
+    'Penn Quarter Candle Co': '901 New York Ave NW, Washington, DC 20001',
+    'CulinAerie': '1131 14th St NW, Washington, DC 20005',
+    'Hill Center Cooking Classes': '921 Pennsylvania Ave SE, Washington, DC 20003',
+    'Escape Room Live DC': '3345 M St NW, Washington, DC 20007',
+    'The Escape Game DC': '1335 F St NW, Washington, DC 20004',
+    'Washington Improv Theater': '1351 U St NW, Washington, DC 20009',
+    'DC Improv Comedy Club': '1140 Connecticut Ave NW, Washington, DC 20036',
+    'Joy of Motion Dance Center': '5207 Wisconsin Ave NW, Washington, DC 20015',
+    'Wunder Garten Trivia Night': '1101 First St NE, Washington, DC 20002'
+  };
+  try {
+    if (typeof window.venueAddresses === 'object' && window.venueAddresses) {
+      Object.assign(window.venueAddresses, NEW_ADDRS);
+    } else if (typeof venueAddresses === 'object' && venueAddresses) {
+      Object.assign(venueAddresses, NEW_ADDRS);
+    }
+  } catch(e) {}
+
+  // After-spot click delegation: route Marvin / Gibson / etc. to showVenueByName, fall back to Maps
+  document.addEventListener('click', function(ev){
+    var el = ev.target.closest && ev.target.closest('.after-spot');
+    if (!el) return;
+    var nameEl = el.querySelector('.after-spot-name');
+    if (!nameEl) return;
+    var name = nameEl.textContent.trim();
+    if (!name) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    // Try to open as a venue page if we have a card for it
+    var found = false;
+    try {
+      var cards = document.querySelectorAll('.spot-card');
+      for (var i=0; i<cards.length; i++) {
+        var n = cards[i].querySelector('.spot-name');
+        if (n && n.textContent.trim().toLowerCase() === name.toLowerCase()) {
+          if (typeof showVenue === 'function') { showVenue(cards[i]); found = true; break; }
+        }
+      }
+    } catch(e) {}
+    if (!found) {
+      // Fallback: open Google Maps in a new tab
+      var url = (typeof mapsLinkFor === 'function') ? mapsLinkFor(name) : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(name + ', Washington, DC');
+      window.open(url, '_blank', 'noopener');
+    }
+  }, true);
 
   // Patch filterDiscovery to trigger context recompute
   if (typeof window.filterDiscovery === 'function') {
