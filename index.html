@@ -131,6 +131,7 @@ nav {
 
 /* DISCOVERY */
 .discovery-layout { display:flex; padding-top:81px; min-height:100vh; }
+.mobile-filter-bar, .filter-backdrop, .filter-drawer-close { display:none; }
 .filter-sidebar { width:280px; flex-shrink:0; border-right:1.5px solid var(--border); padding:32px 28px; position:sticky; top:81px; height:calc(100vh - 81px); overflow-y:auto; }
 .filter-section { margin-bottom:28px; }
 .filter-label { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:12px; display:block; }
@@ -426,18 +427,49 @@ textarea.review-input { resize:vertical; min-height:100px; }
   .search-btn { width:100%; }
   .section { padding:40px 16px; }
 
-  /* Discovery layout - sidebar collapses on mobile */
+  /* Discovery layout - sidebar becomes a left-slide drawer on mobile */
   .discovery-layout { flex-direction:column; }
   .filter-sidebar {
-    width:100%;
-    position:relative;
-    top:auto;
-    height:auto;
-    border-right:none;
-    border-bottom:1.5px solid var(--border);
-    padding:16px;
-    max-height:none;
-    overflow-y:visible;
+    position:fixed;
+    top:0;
+    left:0;
+    width:84vw;
+    max-width:320px;
+    height:100vh;
+    z-index:1001;
+    background:var(--cream,#faf6ef);
+    border-right:1.5px solid var(--border);
+    border-bottom:none;
+    padding:72px 20px 24px;
+    overflow-y:auto;
+    transform:translateX(-100%);
+    transition:transform .28s ease;
+    box-shadow:2px 0 24px rgba(0,0,0,.12);
+  }
+  body.filters-open .filter-sidebar { transform:translateX(0); }
+  .mobile-filter-bar {
+    display:flex; align-items:center; gap:10px;
+    padding:10px 16px; position:sticky; top:60px;
+    background:var(--cream,#faf6ef);
+    border-bottom:1px solid var(--border);
+    z-index:50;
+  }
+  .mobile-filter-btn {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 14px; border:1.5px solid var(--border);
+    border-radius:100px; background:white; font-size:13px;
+    font-weight:600; cursor:pointer;
+  }
+  .filter-backdrop {
+    display:none; position:fixed; inset:0;
+    background:rgba(0,0,0,.4); z-index:1000;
+  }
+  body.filters-open .filter-backdrop { display:block; }
+  .filter-drawer-close {
+    position:absolute; top:16px; right:16px;
+    width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--border); background:white;
+    font-size:20px; line-height:1; cursor:pointer;
   }
   .filter-section { margin-bottom:16px; }
   .filter-options {
@@ -1172,8 +1204,14 @@ textarea.review-input { resize:vertical; min-height:100px; }
 
 <!-- ========== DISCOVERY ========== -->
 <div id="page-discovery" class="page">
+  <div class="mobile-filter-bar">
+    <button class="mobile-filter-btn" onclick="document.body.classList.add('filters-open')">☰ Filters</button>
+    <span style="font-size:12px;color:var(--muted);">Tap to refine</span>
+  </div>
+  <div class="filter-backdrop" onclick="document.body.classList.remove('filters-open')"></div>
   <div class="discovery-layout">
     <aside class="filter-sidebar">
+      <button class="filter-drawer-close" onclick="document.body.classList.remove('filters-open')" aria-label="Close filters">×</button>
       <div class="filter-section">
         <span class="filter-label">City</span>
         <select class="modal-select">
@@ -5855,34 +5893,22 @@ document.addEventListener('click', function(e) {
 
   // Resy deep-link map. Hand-mapped slugs for venues we know are on Resy DC.
   // Anything not in the map falls through to a Resy search URL.
+  // Verified live against resy.com 2026-04-07 — only entries that resolve to a real venue page.
+  // Unmapped venues fall through to the Resy DC search URL.
   var RESY_SLUGS = {
     "Le Diplomate": "le-diplomate",
     "Rose's Luxury": "roses-luxury",
-    "Maydan": "maydan",
     "Albi": "albi",
     "Pineapple and Pearls": "pineapple-and-pearls",
     "Compass Rose": "compass-rose",
-    "Bad Saint": "bad-saint",
     "Dauphine's": "dauphines",
-    "Imperfecto": "imperfecto",
-    "Service Bar": "service-bar",
     "Doi Moi": "doi-moi",
-    "minibar": "minibar",
     "Bar Charley": "bar-charley",
-    "The Dabney": "the-dabney",
-    "Iron Gate": "iron-gate",
-    "All-Purpose": "all-purpose-pizzeria-shaw",
-    "Stellina Pizzeria": "stellina-pizzeria",
-    "Duke's Grocery": "dukes-grocery-dupont",
+    "All-Purpose": "all-purpose",
+    "Duke's Grocery": "dukes-grocery",
     "Unconventional Diner": "unconventional-diner",
-    "Busboys and Poets": "busboys-and-poets-14th-and-v",
-    "Right Proper Brewing": "right-proper-brewing-shaw",
     "Primrose": "primrose",
-    "Succotash": "succotash-penn-quarter",
-    "Taverna": "taverna-the-greek-islands",
-    "Fiola Mare": "fiola-mare",
-    "Filter Coffeehouse": "filter-coffeehouse",
-    "Slipstream": "slipstream"
+    "Fiola Mare": "fiola-mare"
   };
   function resyUrlFor(name){
     if (!name) return null;
