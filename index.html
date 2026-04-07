@@ -1902,7 +1902,7 @@ textarea.review-input { resize:vertical; min-height:100px; }
             <div class="sidebar-detail-row"><span class="sidebar-detail-label">Reservation</span><span class="sidebar-detail-val">Yes, recommended</span></div>
             <div class="sidebar-detail-row"><span class="sidebar-detail-label">Best for</span><span class="sidebar-detail-val">First &amp; Second dates</span></div>
             <div class="sidebar-detail-row"><span class="sidebar-detail-label">Hours</span><span class="sidebar-detail-val">Mon–Thu 5–10pm<br>Fri–Sat 5–11pm</span></div>
-            <button class="venue-cta-btn">Make Reservation →</button>
+            <button class="venue-cta-btn" id="venue-resy-btn" onclick="openResyForCurrentVenue()">Book on Resy →</button>
             <button class="venue-save-btn" id="venue-fav-btn" onclick="toggleVenueFav()">♡ Save to Favorites</button>
             <button class="share-btn" onclick="openModal(&#39;share-venue-modal&#39;)">↗ Share This Spot</button>
           </div>
@@ -5852,6 +5852,53 @@ document.addEventListener('click', function(e) {
       Object.assign(venueAddresses, NEW_ADDRS);
     }
   } catch(e) {}
+
+  // Resy deep-link map. Hand-mapped slugs for venues we know are on Resy DC.
+  // Anything not in the map falls through to a Resy search URL.
+  var RESY_SLUGS = {
+    "Le Diplomate": "le-diplomate",
+    "Rose's Luxury": "roses-luxury",
+    "Maydan": "maydan",
+    "Albi": "albi",
+    "Pineapple and Pearls": "pineapple-and-pearls",
+    "Compass Rose": "compass-rose",
+    "Bad Saint": "bad-saint",
+    "Dauphine's": "dauphines",
+    "Imperfecto": "imperfecto",
+    "Service Bar": "service-bar",
+    "Doi Moi": "doi-moi",
+    "minibar": "minibar",
+    "Bar Charley": "bar-charley",
+    "The Dabney": "the-dabney",
+    "Iron Gate": "iron-gate",
+    "All-Purpose": "all-purpose-pizzeria-shaw",
+    "Stellina Pizzeria": "stellina-pizzeria",
+    "Duke's Grocery": "dukes-grocery-dupont",
+    "Unconventional Diner": "unconventional-diner",
+    "Busboys and Poets": "busboys-and-poets-14th-and-v",
+    "Right Proper Brewing": "right-proper-brewing-shaw",
+    "Primrose": "primrose",
+    "Succotash": "succotash-penn-quarter",
+    "Taverna": "taverna-the-greek-islands",
+    "Fiola Mare": "fiola-mare",
+    "Filter Coffeehouse": "filter-coffeehouse",
+    "Slipstream": "slipstream"
+  };
+  function resyUrlFor(name){
+    if (!name) return null;
+    var slug = RESY_SLUGS[name];
+    if (slug) return 'https://resy.com/cities/dc/' + slug;
+    // Fallback: Resy DC search
+    return 'https://resy.com/cities/dc?query=' + encodeURIComponent(name);
+  }
+  window.openResyForCurrentVenue = function(){
+    try {
+      var titleEl = document.querySelector('.venue-title');
+      var name = titleEl ? titleEl.textContent.trim() : '';
+      var url = resyUrlFor(name);
+      if (url) window.open(url, '_blank', 'noopener');
+    } catch(e) {}
+  };
 
   // After-spot click delegation: route Marvin / Gibson / etc. to showVenueByName, fall back to Maps
   document.addEventListener('click', function(ev){
