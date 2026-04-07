@@ -1067,7 +1067,7 @@ textarea.review-input { resize:vertical; min-height:100px; }
       <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">☕</span><div class="category-name">Coffee Date</div><div class="category-count">9 spots in DC</div></div>
       <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">💸</span><div class="category-name">Under $50</div><div class="category-count">22 spots in DC</div></div>
       <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">🌙</span><div class="category-name">Late Night</div><div class="category-count">14 spots in DC</div></div>
-      <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">🎯</span><div class="category-name">Activity Date</div><div class="category-count">8 spots in DC</div></div>
+      <div class="category-card" onclick="filterDiscovery(&#39;Activity Date&#39;)"><span class="category-icon">🎯</span><div class="category-name">Activity Date</div><div class="category-count">29 spots in DC</div></div>
       <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">🤫</span><div class="category-name">Quiet &amp; Intimate</div><div class="category-count">11 spots in DC</div></div>
       <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">🫧</span><div class="category-name">Low Pressure First Date</div><div class="category-count">15 spots in DC</div></div>
       <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">🤷</span><div class="category-name">Not Sure About Them Yet</div><div class="category-count">12 spots in DC</div></div>
@@ -4484,7 +4484,7 @@ function filterDiscovery(filterName) {
     } else if (filterName === 'Low Pressure First Date') {
       matches = badge.includes('Low Pressure') || badge.includes('First Date') || price === '$';
     } else if (filterName === 'Activity Date' || filterName === 'Activity') {
-      matches = badge.includes('Activity') || badge.includes('Activities') || /paint|axe|rage|arcade|pottery|clay|candle|cook|escape|improv|dance|trivia|bowl|mini golf|karaoke|climb/i.test(content);
+      matches = /^(Activity Date|Activities|Sip & Paint|Axe Throwing|Rage Room|Arcade|Pottery Class|Candle Making|Cooking Class|Escape Room|Improv Comedy|Dance Class|Trivia Night)$/i.test(badge);
     } else if (filterName === 'Late Night') {
       matches = badge.includes('Late Night') || /late night|midnight|2am|after 10/i.test(content);
     } else if (filterName === 'Quiet & Intimate') {
