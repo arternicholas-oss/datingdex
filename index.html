@@ -447,6 +447,8 @@ textarea.review-input { resize:vertical; min-height:100px; }
     box-shadow:2px 0 24px rgba(0,0,0,.12);
   }
   body.filters-open .filter-sidebar { transform:translateX(0); }
+  body.filters-open { overflow:hidden; }
+  .filter-sidebar { -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
   .mobile-filter-bar {
     display:flex; align-items:center; gap:10px;
     padding:10px 16px; position:sticky; top:60px;
@@ -466,11 +468,14 @@ textarea.review-input { resize:vertical; min-height:100px; }
   }
   body.filters-open .filter-backdrop { display:block; }
   .filter-drawer-close {
-    position:absolute; top:16px; right:16px;
+    display:flex; align-items:center; justify-content:center;
+    position:fixed; top:16px; left:calc(min(84vw,320px) - 52px);
     width:36px; height:36px; border-radius:50%;
     border:1px solid var(--border); background:white;
-    font-size:20px; line-height:1; cursor:pointer;
+    font-size:22px; line-height:1; cursor:pointer; z-index:1002;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
   }
+  body:not(.filters-open) .filter-drawer-close { display:none; }
   .filter-section { margin-bottom:16px; }
   .filter-options {
     flex-direction:row;
@@ -868,7 +873,7 @@ textarea.review-input { resize:vertical; min-height:100px; }
 
 </style>
 
-<script src="./DatingDex — Find the right place for the date_files/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>window.SB_URL="https://nrsrjamnecanpmeiwivk.supabase.co";window.SB_ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5yc3JqYW1uZWNhbnBtZWl3aXZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1MTUxMzQsImV4cCI6MjA5MTA5MTEzNH0.m9tN2oiu24wfnQdkTPjhfelihYofk-UVzo4BDR4O_lg";window.addEventListener("DOMContentLoaded",function(){try{window.sb=window.supabase.createClient(window.SB_URL,window.SB_ANON);sb.auth.getUser().then(r=>{window.ddxUser=r.data.user||null;document.dispatchEvent(new Event("ddx-auth-ready"));});sb.auth.onAuthStateChange((e,s)=>{window.ddxUser=s&&s.user||null;document.dispatchEvent(new Event("ddx-auth-change"));});}catch(e){console.error("sb init",e)}});</script>
 <style>@keyframes slide-in-one-tap {
   from {
@@ -4926,7 +4931,11 @@ function sortSpots(sortType) {
 document.addEventListener('DOMContentLoaded', () => {
   const sortSelect = document.querySelector('.sort-select');
   if (sortSelect) {
+    // Drop the "Newest" option until we have a real date_added field
+    [...sortSelect.options].forEach(o => { if (/^Newest$/i.test(o.text)) o.remove(); });
     sortSelect.addEventListener('change', (e) => sortSpots(e.target.value));
+    // Apply the default sort on load so the grid isn't in raw DOM order
+    setTimeout(() => sortSpots(sortSelect.value || 'Best rated'), 50);
   }
 });
 
@@ -5005,8 +5014,19 @@ document.querySelectorAll('.filter-chip').forEach(c => c.addEventListener('click
   applyAllFilters();
 }));
 document.querySelectorAll('.filter-option').forEach(o => o.addEventListener('click', () => {
-  o.closest('.filter-options').querySelectorAll('.filter-option').forEach(x => x.classList.remove('active'));
-  o.classList.add('active');
+  var group = o.closest('.filter-options');
+  var siblings = group.querySelectorAll('.filter-option');
+  var wasActive = o.classList.contains('active');
+  // Detect if this group has an "All ..." default option (first child whose text starts with "All")
+  var allOpt = [...siblings].find(s => /^All\b/i.test(s.textContent.trim()));
+  if (wasActive) {
+    // Toggle off — clear active and re-activate the "All" default if it exists and isn't this option
+    siblings.forEach(x => x.classList.remove('active'));
+    if (allOpt && allOpt !== o) allOpt.classList.add('active');
+  } else {
+    siblings.forEach(x => x.classList.remove('active'));
+    o.classList.add('active');
+  }
   applyAllFilters();
 }));
 
