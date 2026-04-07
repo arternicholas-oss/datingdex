@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*?cb=
+
+Sitemap: https://www.datingdex.com/sitemap.xml
