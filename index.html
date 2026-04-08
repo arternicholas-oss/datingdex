@@ -13,6 +13,31 @@
 <meta name="googlebot" content="index,follow">
 <meta name="theme-color" content="#FF5C3A">
 <link rel="canonical" href="https://www.datingdex.com/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "DatingDex",
+  "url": "https://www.datingdex.com/",
+  "description": "Hand-picked date ideas, restaurants and date-night spots in Washington DC — curated by vibe (first date, impress them, coffee date, late night, and more).",
+  "inLanguage": "en-US",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.datingdex.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "DatingDex",
+  "url": "https://www.datingdex.com/",
+  "logo": "https://www.datingdex.com/og-image.png",
+  "sameAs": []
+}
+</script>
 
 <!-- ========== SEO: OPEN GRAPH ========== -->
 <meta property="og:type" content="website">
@@ -235,6 +260,41 @@ nav {
 /* DISCOVERY */
 .discovery-layout { display:flex; padding-top:81px; min-height:100vh; }
 .mobile-filter-bar, .filter-backdrop, .filter-drawer-close { display:none; }
+.mobile-filter-trigger, .discovery-backdrop, .discovery-close { display:none; }
+@media (max-width:768px) {
+  .mobile-filter-trigger {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 16px; margin:0 0 16px;
+    border:1.5px solid var(--border); border-radius:100px;
+    background:white; font-size:13px; font-weight:600; cursor:pointer;
+  }
+  .discovery-filters-wrap {
+    position:fixed; top:0; left:0;
+    width:84vw; max-width:320px; height:100vh;
+    z-index:1001; background:var(--cream,#faf6ef);
+    border-right:1.5px solid var(--border);
+    padding:72px 20px 24px; overflow-y:auto;
+    transform:translateX(-100%); transition:transform .28s ease;
+    box-shadow:2px 0 24px rgba(0,0,0,.12);
+    -webkit-overflow-scrolling:touch; overscroll-behavior:contain;
+  }
+  body.filters-open .discovery-filters-wrap { transform:translateX(0); }
+  body.filters-open { overflow:hidden; }
+  .discovery-backdrop {
+    display:none; position:fixed; inset:0;
+    background:rgba(0,0,0,.4); z-index:1000;
+  }
+  body.filters-open .discovery-backdrop { display:block; }
+  .discovery-close {
+    display:flex; align-items:center; justify-content:center;
+    position:fixed; top:16px; left:calc(min(84vw,320px) - 52px);
+    width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--border); background:white;
+    font-size:22px; line-height:1; cursor:pointer; z-index:1002;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+  }
+  body.filters-open .discovery-close { display:flex; }
+}
 .filter-sidebar { width:280px; flex-shrink:0; border-right:1.5px solid var(--border); padding:32px 28px; position:sticky; top:81px; height:calc(100vh - 81px); overflow-y:auto; }
 .filter-section { margin-bottom:28px; }
 .filter-label { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:12px; display:block; }
@@ -1172,6 +1232,9 @@ textarea.review-input { resize:vertical; min-height:100px; }
 /*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL2FwcC9zcmMvb25lVGFwL3N0eWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFO0lBQ0UsMkJBQTJCO0VBQzdCO0VBQ0E7SUFDRSwwQkFBMEI7RUFDNUI7QUFDRjs7QUFFQTtFQUNFLFVBQVU7QUFDWjs7QUFHRTtJQUNFLGFBQWE7RUFDZjs7QUFFQTtJQUNFLGdCQUFnQjtFQUNsQjs7QUFFQTtJQUNFLHNCQUFzQjtFQUN4Qjs7QUFFQTtJQUNFLGtCQUFrQjtFQUNwQjs7QUFFQTtJQUNFLGFBQWE7RUFDZjs7QUFFQTtJQUNFLHNCQUFzQjtFQUN4Qjs7QUFFQTtJQUNFLG1CQUFtQjtFQUNyQjs7QUFFQTtJQUNFLDhCQUE4QjtFQUNoQzs7QUFFQTtJQUNFLHVCQUF1QjtFQUN6Qjs7QUFFQTtJQUNFLFdBQVc7RUFDYjs7QUFFQTtJQUNFLGdEQUFnRDtJQUNoRCw0REFBNEQ7SUFDNUQsWUFBWTtJQUNaLG1CQUFtQjtJQUNuQixnQkFBZ0I7SUFDaEIsK0NBQStDO0lBQy9DLGVBQWU7SUFDZixXQUFXO0lBQ1gsWUFBWTtJQUNaLGFBQWE7RUFDZjs7QUFFQTtJQUNFLFNBQVM7SUFDVCxnQ0FBZ0M7SUFDaEMsa0JBQWtCO0VBdUJwQjs7QUFyQkU7TUFDRSxTQUFTO0lBQ1g7O0FBRUE7TUFDRSxjQUFjO01BQ2QsZUFBZTtNQUNmLGdCQUFnQjtNQUNoQixpQkFBaUI7SUFDbkI7O0FBRUE7TUFDRSxjQUFjO01BQ2QsZUFBZTtNQUNmLGlCQUFpQjtJQUNuQjs7QUFFQTtNQUNFLGNBQWM7TUFDZCxlQUFlO0lBQ2pCOztBQUdGO0lBQ0UsaUJBQWlCO0lBQ2pCLFNBQVM7RUFtQlg7O0FBakJFO01BQ0UsU0FBUztNQUNULFdBQVc7SUFjYjs7QUFaRTtRQUNFLGNBQWM7UUFDZCxlQUFlO1FBQ2YsZ0JBQWdCO1FBQ2hCLGlCQUFpQjtNQUNuQjs7QUFFQTtRQUNFLGNBQWM7UUFDZCxlQUFlO1FBQ2YsaUJBQWlCO01BQ25COztBQUlKO0lBQ0UsU0FBUztJQUNULGNBQWM7RUFLaEI7O0FBSEU7TUFDRSxjQUFjO0lBQ2hCOztBQUdGO0lBQ0UsV0FBVztFQUNiOztBQUVBO0lBQ0UsbUJBQW1CO0lBQ25CLDhCQUE4QjtJQUM5QixtQkFBbUI7SUFDbkIsZ0NBQWdDO0lBQ2hDLGdDQUFnQztJQUNoQyxlQUFlO0lBQ2Ysa0JBQWtCO0lBQ2xCLFlBQVk7RUFRZDs7QUFORTtNQUNFLFdBQVc7TUFDWCxlQUFlO01BQ2YsZ0JBQWdCO01BQ2hCLGlCQUFpQjtJQUNuQjs7QUFHRjtJQUNFLGlCQUFpQjtFQUNuQjs7QUFFQTtJQUNFLFdBQVc7RUFDYjs7QUFHRjtFQUNFLHNCQUFzQjtFQUN0QiwrREFBMEU7RUFDMUUsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLHNCQUFzQjtFQUN0QiwrREFBeUU7RUFDekUsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLHNCQUFzQjtFQUN0QiwrREFBMkU7RUFDM0UsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtBQUNwQiIsInNvdXJjZXNDb250ZW50IjpbIkBrZXlmcmFtZXMgc2xpZGUtaW4tb25lLXRhcCB7XG4gIGZyb20ge1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSg4MHB4KTtcbiAgfVxuICB0byB7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKDBweCk7XG4gIH1cbn1cblxuLnRydXN0LWhpZGUtZ3JhY2VmdWxseSB7XG4gIG9wYWNpdHk6IDA7XG59XG5cbi50cnVzdC13YWxsZXQtb25lLXRhcCB7XG4gIC5oaWRkZW4ge1xuICAgIGRpc3BsYXk6IG5vbmU7XG4gIH1cblxuICAuc2VtaWJvbGQge1xuICAgIGZvbnQtd2VpZ2h0OiA1MDA7XG4gIH1cblxuICAuYmluYW5jZS1wbGV4IHtcbiAgICBmb250LWZhbWlseTogJ0JpbmFuY2UnO1xuICB9XG5cbiAgLnJvdW5kZWQtZnVsbCB7XG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xuICB9XG5cbiAgLmZsZXgge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gIH1cblxuICAuZmxleC1jb2wge1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIH1cblxuICAuaXRlbXMtY2VudGVyIHtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICB9XG5cbiAgLnNwYWNlLWJldHdlZW4ge1xuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgfVxuXG4gIC5qdXN0aWZ5LWNlbnRlciB7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIH1cblxuICAudy1mdWxsIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgfVxuXG4gIC5ib3gge1xuICAgIHRyYW5zaXRpb246IGFsbCAwLjVzIGN1YmljLWJlemllcigwLCAwLCAwLCAxLjQzKTtcbiAgICBhbmltYXRpb246IHNsaWRlLWluLW9uZS10YXAgMC41cyBjdWJpYy1iZXppZXIoMCwgMCwgMCwgMS40Myk7XG4gICAgd2lkdGg6IDM4NHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDE1cHg7XG4gICAgYmFja2dyb3VuZDogI2ZmZjtcbiAgICBib3gtc2hhZG93OiAwcHggMnB4IDRweCAwcHggcmdiYSgwLCAwLCAwLCAwLjI1KTtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgcmlnaHQ6IDMwcHg7XG4gICAgYm90dG9tOiAzMHB4O1xuICAgIHotaW5kZXg6IDEwMjA7XG4gIH1cblxuICAuaGVhZGVyIHtcbiAgICBnYXA6IDE1cHg7XG4gICAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICNlNmU2ZTY7XG4gICAgcGFkZGluZzogMTBweCAxOHB4O1xuXG4gICAgLmxlZnQtaXRlbXMge1xuICAgICAgZ2FwOiAxNXB4O1xuICAgIH1cblxuICAgIC50aXRsZSB7XG4gICAgICBjb2xvcjogIzFlMjMyOTtcbiAgICAgIGZvbnQtc2l6ZTogMThweDtcbiAgICAgIGZvbnQtd2VpZ2h0OiA2MDA7XG4gICAgICBsaW5lLWhlaWdodDogMjhweDtcbiAgICB9XG5cbiAgICAuc3VidGl0bGUge1xuICAgICAgY29sb3I6ICM0NzRkNTc7XG4gICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICBsaW5lLWhlaWdodDogMjBweDtcbiAgICB9XG5cbiAgICAuY2xvc2Uge1xuICAgICAgY29sb3I6ICMxZTIzMjk7XG4gICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgfVxuICB9XG5cbiAgLmJvZHkge1xuICAgIHBhZGRpbmc6IDlweCAxOHB4O1xuICAgIGdhcDogMTBweDtcblxuICAgIC5yaWdodC1pdGVtcyB7XG4gICAgICBnYXA6IDEwcHg7XG4gICAgICB3aWR0aDogMTAwJTtcblxuICAgICAgLndhbGxldC10aXRsZSB7XG4gICAgICAgIGNvbG9yOiAjMWUyMzI5O1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtd2VpZ2h0OiA2MDA7XG4gICAgICAgIGxpbmUtaGVpZ2h0OiAyMHB4O1xuICAgICAgfVxuXG4gICAgICAud2FsbGV0LXN1YnRpdGxlIHtcbiAgICAgICAgY29sb3I6ICM0NzRkNTc7XG4gICAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICAgICAgbGluZS1oZWlnaHQ6IDIwcHg7XG4gICAgICB9XG4gICAgfVxuICB9XG5cbiAgLmNvbm5lY3QtaW5kaWNhdG9yIHtcbiAgICBnYXA6IDE1cHg7XG4gICAgcGFkZGluZzogOHB4IDA7XG5cbiAgICAuZmxvdy1pY29uIHtcbiAgICAgIGNvbG9yOiAjNDc0ZDU3O1xuICAgIH1cbiAgfVxuXG4gIC5sb2FkaW5nLWNvbG9yIHtcbiAgICBjb2xvcjogI2ZmZjtcbiAgfVxuXG4gIC5idXR0b24ge1xuICAgIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gICAgb3V0bGluZTogMnB4IHNvbGlkIHRyYW5zcGFyZW50O1xuICAgIG91dGxpbmUtb2Zmc2V0OiAycHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDUsIDAsIDI1NSk7XG4gICAgYm9yZGVyLWNvbG9yOiByZ2IoMjI5LCAyMzEsIDIzNSk7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBoZWlnaHQ6IDQ1cHg7XG5cbiAgICAuYnV0dG9uLXRleHQge1xuICAgICAgY29sb3I6ICNmZmY7XG4gICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICBmb250LXdlaWdodDogNjAwO1xuICAgICAgbGluZS1oZWlnaHQ6IDIwcHg7XG4gICAgfVxuICB9XG5cbiAgLmZvb3RlciB7XG4gICAgbWFyZ2luOiAyMHB4IDMwcHg7XG4gIH1cblxuICAuY2hlY2staWNvbiB7XG4gICAgY29sb3I6ICNmZmY7XG4gIH1cbn1cblxuQGZvbnQtZmFjZSB7XG4gIGZvbnQtZmFtaWx5OiAnQmluYW5jZSc7XG4gIHNyYzogdXJsKCcuL2ZvbnRzL2JpbmFuY2VQbGV4L0JpbmFuY2VQbGV4LVJlZ3VsYXIub3RmJykgZm9ybWF0KCdvcGVudHlwZScpO1xuICBmb250LXdlaWdodDogNDAwO1xuICBmb250LXN0eWxlOiBub3JtYWw7XG59XG5cbkBmb250LWZhY2Uge1xuICBmb250LWZhbWlseTogJ0JpbmFuY2UnO1xuICBzcmM6IHVybCgnLi9mb250cy9iaW5hbmNlUGxleC9CaW5hbmNlUGxleC1NZWRpdW0ub3RmJykgZm9ybWF0KCdvcGVudHlwZScpO1xuICBmb250LXdlaWdodDogNTAwO1xuICBmb250LXN0eWxlOiBub3JtYWw7XG59XG5cbkBmb250LWZhY2Uge1xuICBmb250LWZhbWlseTogJ0JpbmFuY2UnO1xuICBzcmM6IHVybCgnLi9mb250cy9iaW5hbmNlUGxleC9CaW5hbmNlUGxleC1TZW1pQm9sZC5vdGYnKSBmb3JtYXQoJ29wZW50eXBlJyk7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG4gIGZvbnQtc3R5bGU6IG5vcm1hbDtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style></head>
 <body>
 
+<a href="#main-content" class="skip-to-content">Skip to content</a>
+<div aria-live="polite" aria-atomic="true" id="ddx-live-region" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"></div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo" onclick="showPage(&#39;home&#39;)">Dating<span>Dex</span></div>
@@ -1191,7 +1254,7 @@ textarea.review-input { resize:vertical; min-height:100px; }
 </nav>
 
 <!-- ========== HOME ========== -->
-<div id="page-home" class="page active">
+<div id="page-home" class="page active"><span id="main-content" tabindex="-1" style="position:absolute;"></span>
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-eyebrow">Washington D.C.</div>
@@ -1216,13 +1279,13 @@ textarea.review-input { resize:vertical; min-height:100px; }
       <a class="section-link" onclick="showPage(&#39;discovery&#39;)">See all →</a>
     </div>
     <div class="category-grid">
-      <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">🥂</span><div class="category-name">First Date</div><div class="category-count">57 spots in DC</div><div class="category-hint">Classic sit-down spots with good conversation energy — think reservations, a proper menu, and a bit of occasion.</div></div>
-      <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">🔥</span><div class="category-name">Impress Them</div><div class="category-count">24 spots in DC</div><div class="category-hint">Pull-out-all-the-stops spots when you really want to wow them — high design, high effort, high reward.</div></div>
-      <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">☕</span><div class="category-name">Coffee Date</div><div class="category-count">27 spots in DC</div><div class="category-hint">Casual coffee meetups with good seating and a relaxed vibe — perfect for low-stakes first hangs.</div></div>
-            <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">🌙</span><div class="category-name">Late Night</div><div class="category-count">37 spots in DC</div><div class="category-hint">Open late with the right energy — cocktail bars, dim lighting, and a post-dinner second act.</div></div>
+      <div class="category-card" onclick="filterDiscovery(&#39;First Date&#39;)"><span class="category-icon">🥂</span><div class="category-name">First Date</div><div class="category-count">57 spots in DC</div><div class="category-hint">Classic sit-down spots with good conversation energy — think reservations, a proper menu, and a bit of occasion.</div></div>
+      <div class="category-card" onclick="filterDiscovery(&#39;Impress Them&#39;)"><span class="category-icon">🔥</span><div class="category-name">Impress Them</div><div class="category-count">24 spots in DC</div><div class="category-hint">Pull-out-all-the-stops spots when you really want to wow them — high design, high effort, high reward.</div></div>
+      <div class="category-card" onclick="filterDiscovery(&#39;Coffee Date&#39;)"><span class="category-icon">☕</span><div class="category-name">Coffee Date</div><div class="category-count">27 spots in DC</div><div class="category-hint">Casual coffee meetups with good seating and a relaxed vibe — perfect for low-stakes first hangs.</div></div>
+            <div class="category-card" onclick="filterDiscovery(&#39;Late Night&#39;)"><span class="category-icon">🌙</span><div class="category-name">Late Night</div><div class="category-count">37 spots in DC</div><div class="category-hint">Open late with the right energy — cocktail bars, dim lighting, and a post-dinner second act.</div></div>
       <div class="category-card" onclick="filterDiscovery(&#39;Activity Date&#39;)"><span class="category-icon">🎯</span><div class="category-name">Activity Date</div><div class="category-count">53 spots in DC</div><div class="category-hint">Do something together — mini golf, axe throwing, arcades, classes. Built-in conversation starters.</div></div>
-      <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">🤫</span><div class="category-name">Quiet &amp; Intimate</div><div class="category-count">36 spots in DC</div><div class="category-hint">Hushed rooms, candlelight, tucked-away tables — the kind of place where you actually hear each other.</div></div>
-      <div class="category-card" onclick="showPage(&#39;discovery&#39;)"><span class="category-icon">🫧</span><div class="category-name">Low Pressure First Date</div><div class="category-count">63 spots in DC</div><div class="category-hint">Walk-in friendly, casual, easy exit — wine bars, small plates, counter spots. No reservation anxiety.</div></div>
+      <div class="category-card" onclick="filterDiscovery(&#39;Quiet &amp; Intimate&#39;)"><span class="category-icon">🤫</span><div class="category-name">Quiet &amp; Intimate</div><div class="category-count">36 spots in DC</div><div class="category-hint">Hushed rooms, candlelight, tucked-away tables — the kind of place where you actually hear each other.</div></div>
+      <div class="category-card" onclick="filterDiscovery(&#39;Low Pressure First Date&#39;)"><span class="category-icon">🫧</span><div class="category-name">Low Pressure First Date</div><div class="category-count">63 spots in DC</div><div class="category-hint">Walk-in friendly, casual, easy exit — wine bars, small plates, counter spots. No reservation anxiety.</div></div>
       <div class="category-card" onclick="filterDiscovery(&#39;Cost Effective&#39;)"><span class="category-icon">💸</span><div class="category-name">Cost Effective</div><div class="category-count">39 spots in DC</div><div class="category-hint">Truly cheap date spots we genuinely vouch for — $ price tier only, all rated 7.5+. The best of the budget tier.</div></div>
     </div>
   </section>
@@ -1405,6 +1468,10 @@ textarea.review-input { resize:vertical; min-height:100px; }
         <h2 class="section-title">All 297 DC date spots</h2>
         <a class="section-link" onclick="showPage('home')">← Back home</a>
       </div>
+      <button class="mobile-filter-trigger" onclick="openFilters()">☰ Filters</button>
+      <div class="discovery-backdrop" onclick="closeFilters()"></div>
+      <div class="discovery-filters-wrap" id="discoveryFiltersWrap">
+        <button class="discovery-close" onclick="closeFilters()" aria-label="Close filters">×</button>
       <div class="filter-section" style="margin-bottom:16px;">
         <div class="filter-label">Budget</div>
         <div class="filter-options" style="flex-direction:row;flex-wrap:wrap;gap:6px;">
@@ -1430,6 +1497,7 @@ textarea.review-input { resize:vertical; min-height:100px; }
           <div class="filter-option">Maryland</div>
         </div>
       </div>
+      </div><!-- /discovery-filters-wrap -->
       <div class="discovery-grid">
       <div class="spot-card" onclick="showVenue(this)">
         <div class="spot-img spot-img-1" style="background-image: url(&quot;https://places.googleapis.com/v1/places/ChIJJ0ZTR-i3t4kRLDrhQrCNIdQ/photos/AU_ZVEHYaQ98Y6PoZ9wnSiYJ6iFlpzaZ5bwQML1t5vAxEQytNZftgiFCgiRBsx7rSRDI50W0-1g5f4jHy1yIt74xRs_rAe_yXZ7Dt1OfU_ybopBoL3-9FJQWvewoc1Hhok7sfNxAu0xd6niz5ZdNo0eg7CCpJ7kNhIaJFP1sgKaBAA46C-oVl0c1iXsgwuwBlvi4sqmvP4xzTY8wW3MVDT88uuog4zoR0hLdAQy6J0h3yUqaHFpEjz0OHGVVLn7AALTfT9UwKBcLnjuZJxBphmBSgmhrGKvgkdI7g6h6FAKXLWpnrQ/media?maxHeightPx=400&amp;maxWidthPx=600&amp;key=AIzaSyCB-U0fDKW_qKrQHLqGQwaB4ks462oRPr8&quot;); background-size: cover; background-position: center center;">
@@ -5454,13 +5522,41 @@ let reviews = [];
 let currentStars = 0;
 let currentTab = 'overview';
 
+// MOBILE FILTER DRAWER
+function openFilters(){document.body.classList.add('filters-open');}
+function closeFilters(){document.body.classList.remove('filters-open');}
+
 // PAGE NAVIGATION
-function showPage(page) {
+function _renderPage(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
+  var el = document.getElementById('page-' + page);
+  if (!el) { el = document.getElementById('page-home'); page = 'home'; }
+  el.classList.add('active');
   window.scrollTo(0,0);
   if (page === 'favorites') renderFavorites();
+  return page;
 }
+function showPage(page) {
+  page = _renderPage(page);
+  try {
+    var hash = '#' + page;
+    if (location.hash !== hash) {
+      history.pushState({page: page}, '', hash);
+    } else if (!history.state) {
+      history.replaceState({page: page}, '', hash);
+    }
+  } catch(e) {}
+}
+window.addEventListener('popstate', function(e) {
+  var page = (e.state && e.state.page) || (location.hash ? location.hash.slice(1) : 'home') || 'home';
+  _renderPage(page);
+});
+window.addEventListener('DOMContentLoaded', function() {
+  var initial = location.hash ? location.hash.slice(1) : 'home';
+  if (!document.getElementById('page-' + initial)) initial = 'home';
+  history.replaceState({page: initial}, '', '#' + initial);
+  _renderPage(initial);
+});
 
 // DYNAMIC VENUE DISPLAY
 // WHERE TO GO AFTER - neighborhood-specific recommendations
@@ -9262,6 +9358,49 @@ document.addEventListener('click', function(e) {
 .venue-hero[data-photo-hero="1"]::before { display:none !important; }
 .result-card { transition: transform 120ms ease; }
 .result-card:hover { transform: translateY(-2px); }
+
+/* ========== ACCESSIBILITY + PERF POLISH (auto-applied) ========== */
+.skip-to-content {
+  position:absolute; left:-9999px; top:0; z-index:10000;
+  background:#111; color:#fff; padding:12px 18px;
+  border-radius:0 0 8px 0; font-weight:600; text-decoration:none;
+}
+.skip-to-content:focus { left:0; outline:2px solid var(--coral); }
+
+:focus-visible {
+  outline:2px solid var(--coral, #FF5C3A);
+  outline-offset:2px;
+  border-radius:4px;
+}
+.spot-card:focus-visible, .category-card:focus-visible, .hero-tag:focus-visible {
+  outline:3px solid var(--coral, #FF5C3A);
+  outline-offset:3px;
+}
+.fav-btn:focus-visible { outline:2px solid var(--coral, #FF5C3A); outline-offset:2px; }
+
+/* Offscreen cards skip paint/layout cost until scrolled into view */
+.spot-card { content-visibility:auto; contain-intrinsic-size:420px; }
+
+/* Honor reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+/* Toast for async feedback */
+.ddx-toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:#111; color:#fff; padding:12px 20px; border-radius:100px;
+  font-size:14px; font-weight:600; z-index:9999;
+  box-shadow:0 8px 24px rgba(0,0,0,0.25);
+  opacity:0; transition:opacity .2s ease;
+  pointer-events:none;
+}
+.ddx-toast.show { opacity:1; }
 </style>
 
 <script>
@@ -9507,6 +9646,142 @@ document.addEventListener('click', function(e) {
       if (p === 'venue') setTimeout(addSourceAttribution, 50);
     };
   }
+})();
+</script>
+
+<script>
+/* ========== DATINGDEX A11Y + UX POLISH (runtime, non-invasive) ========== */
+(function(){
+  'use strict';
+
+  // ---- Toast helper + live-region announcer ----
+  var toastEl = null;
+  window.showToast = window.showToast || function(msg, ms){
+    if (!toastEl) {
+      toastEl = document.createElement('div');
+      toastEl.className = 'ddx-toast';
+      toastEl.setAttribute('role','status');
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastEl._t);
+    toastEl._t = setTimeout(function(){ toastEl.classList.remove('show'); }, ms || 2400);
+    var lr = document.getElementById('ddx-live-region');
+    if (lr) lr.textContent = msg;
+  };
+
+  // ---- Keyboard activation of clickable divs ----
+  // Any element with onclick= gets role=button, tabindex=0, and Enter/Space activation.
+  function upgradeClickables(root){
+    root = root || document;
+    var nodes = root.querySelectorAll('[onclick]');
+    for (var i=0; i<nodes.length; i++) {
+      var el = nodes[i];
+      if (el.tagName === 'A' || el.tagName === 'BUTTON' || el.dataset.ddxA11y === '1') continue;
+      if (!el.hasAttribute('role')) el.setAttribute('role','button');
+      if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex','0');
+      el.dataset.ddxA11y = '1';
+    }
+  }
+
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+    var t = e.target;
+    if (!t || !t.hasAttribute) return;
+    if (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT') return;
+    if (t.getAttribute('role') === 'button' && t.hasAttribute('onclick')) {
+      e.preventDefault();
+      t.click();
+    }
+  });
+
+  // ---- Aria-labels on icon-only favorite buttons ----
+  function labelFavButtons(){
+    document.querySelectorAll('.fav-btn').forEach(function(b){
+      if (b.getAttribute('aria-label')) return;
+      var name = b.getAttribute('data-name') || 'this spot';
+      b.setAttribute('aria-label', 'Save ' + name + ' to favorites');
+      b.setAttribute('type','button');
+    });
+  }
+
+  // ---- Demote duplicate H1s on hidden pages (SEO + a11y) ----
+  // Only #page-home keeps its real H1; others get aria-level=2 semantically.
+  function deDuplicateH1s(){
+    document.querySelectorAll('.page:not(#page-home) h1').forEach(function(h){
+      h.setAttribute('role','heading');
+      h.setAttribute('aria-level','2');
+    });
+  }
+
+  // ---- Mobile filter drawer: ARIA + Escape + focus restore ----
+  var _filterTrigger = null;
+  var origOpen = window.openFilters;
+  window.openFilters = function(){
+    _filterTrigger = document.activeElement;
+    if (typeof origOpen === 'function') origOpen();
+    var wrap = document.getElementById('discoveryFiltersWrap');
+    if (wrap) {
+      wrap.setAttribute('role','dialog');
+      wrap.setAttribute('aria-modal','true');
+      wrap.setAttribute('aria-label','Filter options');
+      var close = wrap.querySelector('.discovery-close');
+      if (close) setTimeout(function(){ close.focus(); }, 50);
+    }
+    document.querySelectorAll('.mobile-filter-trigger').forEach(function(b){
+      b.setAttribute('aria-expanded','true');
+    });
+  };
+  var origClose = window.closeFilters;
+  window.closeFilters = function(){
+    if (typeof origClose === 'function') origClose();
+    document.querySelectorAll('.mobile-filter-trigger').forEach(function(b){
+      b.setAttribute('aria-expanded','false');
+    });
+    if (_filterTrigger && typeof _filterTrigger.focus === 'function') {
+      try { _filterTrigger.focus(); } catch(e){}
+    }
+  };
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && document.body.classList.contains('filters-open')) {
+      window.closeFilters();
+    }
+  });
+
+  // ---- Fav button must not trigger venue click ----
+  document.addEventListener('click', function(e){
+    var fav = e.target.closest && e.target.closest('.fav-btn');
+    if (fav) { e.stopPropagation(); }
+  }, true);
+
+  // ---- Initialize ----
+  function init(){
+    upgradeClickables();
+    labelFavButtons();
+    deDuplicateH1s();
+    document.querySelectorAll('.mobile-filter-trigger').forEach(function(b){
+      b.setAttribute('aria-expanded','false');
+      b.setAttribute('aria-controls','discoveryFiltersWrap');
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Re-run if content is swapped in dynamically
+  var mo = new MutationObserver(function(muts){
+    for (var i=0; i<muts.length; i++) {
+      if (muts[i].addedNodes && muts[i].addedNodes.length) {
+        upgradeClickables();
+        labelFavButtons();
+        break;
+      }
+    }
+  });
+  mo.observe(document.body, {childList:true, subtree:true});
 })();
 </script>
 
